@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+	<script type="text/javascript" src="lib/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+    game.load.image('balloon', 'imgs/balloon.png');
+}
+
+function create() {
+  this.balloons = [game.add.sprite(0, 0, 'balloon')];
+  this.balloons[0].xVel = Math.random() * 5 - 2.5;
+  this.balloons[0].yVel = Math.random() * 5 - 2.5;
+}
+
+function update() {
+  this.balloons[0].x += this.balloons[0].xVel;
+  this.balloons[0].y += this.balloons[0].yVel;
+
+  if(this.balloons[0].x < 0){
+    this.balloons[0].xVel *= -1;
+    this.balloons[0].x = 0;
+  }
+  if(this.balloons[0].x + this.balloons[0].width >= 800){
+    this.balloons[0].xVel *= -1;
+    this.balloons[0].x = 800 - this.balloons[0].width;
+  }
+  if(this.balloons[0].y < 0){
+    this.balloons[0].yVel *= -1;
+    this.balloons[0].y = 0;
+  }
+  if(this.balloons[0].y + this.balloons[0].height >= 600){
+    this.balloons[0].yVel *= -1;
+    this.balloons[0].y = 600 - this.balloons[0].height;
+  }
+}
+
+</script>
+
+</body>
+</html>
